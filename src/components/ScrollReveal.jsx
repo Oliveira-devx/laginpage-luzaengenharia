@@ -1,17 +1,68 @@
 import { useEffect, useRef, useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+
+import {
+  motion,
+  useReducedMotion,
+} from "framer-motion";
+
+const directionOffset = {
+  left: {
+    x: -70,
+    y: 0,
+  },
+
+  right: {
+    x: 70,
+    y: 0,
+  },
+
+  up: {
+    x: 0,
+    y: 45,
+  },
+
+  down: {
+    x: 0,
+    y: -45,
+  },
+};
 
 export default function ScrollReveal({
   children,
   delay = 0,
   duration = 0.65,
-  y = 30,
+  direction = "up",
+  distance,
   className = "",
 }) {
   const elementRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
 
   const shouldReduceMotion = useReducedMotion();
+
+  const selectedDirection =
+    directionOffset[direction] ||
+    directionOffset.up;
+
+  const hasCustomDistance =
+    distance !== undefined &&
+    typeof distance === "number";
+
+  const initialX = hasCustomDistance &&
+    (direction === "left" ||
+      direction === "right")
+    ? direction === "left"
+      ? -distance
+      : distance
+    : selectedDirection.x;
+
+  const initialY = hasCustomDistance &&
+    (direction === "up" ||
+      direction === "down")
+    ? direction === "up"
+      ? distance
+      : -distance
+    : selectedDirection.y;
 
   useEffect(() => {
     const element = elementRef.current;
@@ -29,6 +80,7 @@ export default function ScrollReveal({
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
+
           observer.unobserve(element);
         }
       },
@@ -51,26 +103,25 @@ export default function ScrollReveal({
       className={`scroll-reveal ${className}`}
       initial={{
         opacity: 0,
-        y: shouldReduceMotion ? 0 : y,
+        x: shouldReduceMotion ? 0 : initialX,
+        y: shouldReduceMotion ? 0 : initialY,
       }}
       animate={
         isVisible
           ? {
               opacity: 1,
+              x: 0,
               y: 0,
             }
           : {
               opacity: 0,
-              y: shouldReduceMotion ? 0 : y,
+              x: shouldReduceMotion ? 0 : initialX,
+              y: shouldReduceMotion ? 0 : initialY,
             }
       }
       transition={{
-        duration: shouldReduceMotion
-          ? 0
-          : duration,
-        delay: shouldReduceMotion
-          ? 0
-          : delay,
+        duration: shouldReduceMotion ? 0 : duration,
+        delay: shouldReduceMotion ? 0 : delay,
         ease: [0.22, 1, 0.36, 1],
       }}
     >

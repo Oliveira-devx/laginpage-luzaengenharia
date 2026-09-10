@@ -4783,3 +4783,116 @@ body {
     width: calc(100% - 24px);
   }
 }
+
+/* =========================================================
+   CORREÇÃO DEFINITIVA DO VÍDEO DO HERO
+   ========================================================= */
+
+.hero.hero-fullscreen {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 100vh;
+  min-height: 100svh;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Área do vídeo */
+.hero.hero-fullscreen .hero-background {
+  position: absolute !important;
+  inset: 0 !important;
+
+  width: 100% !important;
+  height: 100% !important;
+
+  overflow: hidden !important;
+
+  z-index: 0 !important;
+
+  pointer-events: none;
+}
+
+/* Vídeo */
+.hero.hero-fullscreen .hero-video {
+  position: absolute !important;
+
+  top: 50% !important;
+  left: 50% !important;
+
+  width: 100% !important;
+  height: 100% !important;
+
+  transform: translate(-50%, -50%) !important;
+
+  object-fit: cover !important;
+
+  /* Ajuste principal do enquadramento */
+  object-position: 50% 50% !important;
+
+  min-width: 0 !important;
+  min-height: 0 !important;
+
+  display: block !important;
+
+  z-index: 0 !important;
+
+  pointer-events: none;
+}
+
+/* Overlay */
+.hero.hero-fullscreen .hero-overlay {
+  position: absolute !important;
+  inset: 0 !important;
+
+  width: 100% !important;
+  height: 100% !important;
+
+  z-index: 1 !important;
+
+  pointer-events: none;
+}
+
+/* Conteúdo acima do vídeo */
+.hero.hero-fullscreen .hero-container {
+  position: relative;
+  z-index: 2;
+}
+
+/* Elementos internos */
+.hero.hero-fullscreen .hero-content,
+.hero.hero-fullscreen .hero-economy,
+.hero.hero-fullscreen .hero-scroll {
+  position: relative;
+  z-index: 3;
+}
+
+/* =========================================================
+   DESKTOP
+   ========================================================= */
+
+@media (min-width: 1201px) {
+  .hero.hero-fullscreen .hero-video {
+    object-position: 50% 48% !important;
+  }
+}
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1200px) {
+  .hero.hero-fullscreen .hero-video {
+    object-position: 54% 50% !important;
+  }
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
+  .hero.hero-fullscreen .hero-video {
+    object-position: 58% 50% !important;
+  }
+}
