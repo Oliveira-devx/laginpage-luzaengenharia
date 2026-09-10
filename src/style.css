@@ -4785,22 +4785,704 @@ body {
 }
 
 /* =========================================================
-   CORREÇÃO DEFINITIVA DO VÍDEO DO HERO
+   HERO MOBILE — MESMA IDENTIDADE DO DESKTOP
+   Apenas adaptado para telas pequenas
    ========================================================= */
 
-.hero.hero-fullscreen {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  min-height: 100vh;
-  min-height: 100svh;
-  overflow: hidden;
-  isolation: isolate;
+@media (max-width: 650px) {
+
+  /* HERO */
+  .hero.hero-fullscreen {
+    width: 100%;
+    min-height: 100dvh;
+    height: auto;
+
+    display: flex;
+    align-items: center;
+
+    overflow: hidden;
+  }
+
+  /* CONTAINER */
+  .hero.hero-fullscreen .hero-container {
+    width: calc(100% - 30px) !important;
+    max-width: none !important;
+
+    min-height: 100dvh;
+
+    margin: 0 auto;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    justify-content: center;
+    align-items: stretch;
+
+    gap: 22px !important;
+
+    padding-top: 88px !important;
+    padding-bottom: 38px !important;
+  }
+
+  /* CONTEÚDO */
+  .hero.hero-fullscreen .hero-content {
+    width: 100% !important;
+    max-width: none !important;
+  }
+
+  /* BADGE */
+  .hero.hero-fullscreen .hero-badge {
+    display: inline-flex;
+
+    width: fit-content;
+
+    margin-bottom: 16px !important;
+
+    padding: 8px 11px !important;
+
+    font-size: 8px !important;
+
+    letter-spacing: 0.1em;
+
+    gap: 6px;
+  }
+
+  .hero.hero-fullscreen .hero-badge svg {
+    width: 13px;
+    height: 13px;
+  }
+
+  /* TÍTULO */
+  .hero.hero-fullscreen h1 {
+    width: 100% !important;
+
+    max-width: 370px !important;
+
+    margin: 0 !important;
+
+    font-size: clamp(34px, 9.5vw, 42px) !important;
+
+    line-height: 0.97 !important;
+
+    letter-spacing: -0.045em !important;
+  }
+
+  /* DESCRIÇÃO */
+  .hero.hero-fullscreen .hero-description {
+    width: 100%;
+
+    max-width: 350px !important;
+
+    margin-top: 16px !important;
+    margin-bottom: 22px !important;
+
+    font-size: 13px !important;
+
+    line-height: 1.6 !important;
+  }
+
+  /* BOTÕES */
+  .hero.hero-fullscreen .hero-actions {
+    width: 100%;
+
+    display: flex !important;
+
+    flex-direction: column !important;
+
+    align-items: stretch !important;
+
+    gap: 9px !important;
+  }
+
+  .hero.hero-fullscreen .hero-actions .btn {
+    width: 100% !important;
+
+    min-height: 46px !important;
+    height: 46px;
+
+    padding: 0 14px !important;
+
+    font-size: 9px !important;
+
+    letter-spacing: 0.035em;
+
+    white-space: nowrap;
+  }
+
+  .hero.hero-fullscreen .hero-actions .btn svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  /* LOCALIZAÇÃO */
+  .hero.hero-fullscreen .hero-location {
+    margin-top: 14px !important;
+
+    font-size: 9px !important;
+
+    gap: 6px;
+  }
+
+  .hero.hero-fullscreen .hero-location svg {
+    width: 13px;
+    height: 13px;
+  }
+
+  /* =======================================================
+     CARD
+     ======================================================= */
+
+  .hero.hero-fullscreen .hero-economy {
+    width: 100% !important;
+
+    max-width: none !important;
+
+    margin: 0 !important;
+
+    padding: 18px !important;
+
+    justify-self: stretch !important;
+
+    border-radius: 15px;
+
+    box-sizing: border-box;
+  }
+
+  /* HEADER */
+  .hero.hero-fullscreen .hero-economy-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 12px;
+  }
+
+  .hero.hero-fullscreen .hero-economy-label {
+    font-size: 8px !important;
+  }
+
+  .hero.hero-fullscreen .hero-economy-title {
+    margin-top: 5px !important;
+
+    font-size: 17px !important;
+
+    line-height: 1.2 !important;
+  }
+
+  .hero.hero-fullscreen .hero-economy-icon {
+    width: 38px !important;
+    height: 38px !important;
+
+    border-radius: 10px;
+  }
+
+  .hero.hero-fullscreen .hero-economy-icon svg {
+    width: 19px;
+    height: 19px;
+  }
+
+  /* VALOR */
+  .hero.hero-fullscreen .hero-economy-main {
+    margin-top: 20px !important;
+
+    padding-bottom: 16px !important;
+  }
+
+  .hero.hero-fullscreen .hero-economy-main small {
+    font-size: 8px !important;
+  }
+
+  .hero.hero-fullscreen .hero-economy-value {
+    margin-top: 5px !important;
+
+    font-size: 37px !important;
+
+    line-height: 1 !important;
+
+    letter-spacing: -0.055em;
+  }
+
+  .hero.hero-fullscreen .hero-economy-month {
+    margin-left: 4px;
+
+    font-size: 10px !important;
+  }
+
+  /* MINI CARDS */
+  .hero.hero-fullscreen .hero-economy-grid {
+    display: grid !important;
+
+    grid-template-columns: 1fr 1fr !important;
+
+    gap: 8px !important;
+
+    margin-top: 13px !important;
+  }
+
+  .hero.hero-fullscreen .hero-economy-item {
+    padding: 10px !important;
+
+    border-radius: 8px;
+  }
+
+  .hero.hero-fullscreen .hero-economy-item span {
+    margin-bottom: 4px !important;
+
+    font-size: 8px !important;
+
+    line-height: 1.25;
+  }
+
+  .hero.hero-fullscreen .hero-economy-item strong {
+    font-size: 13px !important;
+  }
+
+  /* OBSERVAÇÃO */
+  .hero.hero-fullscreen .hero-economy-note {
+    margin-top: 10px !important;
+
+    font-size: 7px !important;
+
+    line-height: 1.5 !important;
+  }
+
+  /* SCROLL */
+  .hero.hero-fullscreen .hero-scroll {
+    display: none !important;
+  }
 }
 
-/* Área do vídeo */
+
+/* =========================================================
+   CELULAR PEQUENO
+   ========================================================= */
+
+@media (max-width: 380px) {
+
+  .hero.hero-fullscreen .hero-container {
+    width: calc(100% - 24px) !important;
+
+    gap: 18px !important;
+
+    padding-top: 82px !important;
+    padding-bottom: 28px !important;
+  }
+
+  .hero.hero-fullscreen h1 {
+    font-size: 32px !important;
+
+    max-width: 340px !important;
+  }
+
+  .hero.hero-fullscreen .hero-description {
+    max-width: 330px !important;
+
+    font-size: 12px !important;
+
+    margin-top: 14px !important;
+    margin-bottom: 18px !important;
+  }
+
+  .hero.hero-fullscreen .hero-actions .btn {
+    height: 44px;
+
+    min-height: 44px !important;
+
+    font-size: 8px !important;
+  }
+
+  .hero.hero-fullscreen .hero-economy {
+    padding: 15px !important;
+  }
+
+  .hero.hero-fullscreen .hero-economy-title {
+    font-size: 15px !important;
+  }
+
+  .hero.hero-fullscreen .hero-economy-value {
+    font-size: 33px !important;
+  }
+}
+
+
+/* =========================================================
+   TELAS BAIXAS
+   ========================================================= */
+
+@media (max-width: 650px) and (max-height: 720px) {
+
+  .hero.hero-fullscreen .hero-container {
+    justify-content: flex-start;
+
+    padding-top: 78px !important;
+    padding-bottom: 24px !important;
+
+    gap: 16px !important;
+  }
+
+  .hero.hero-fullscreen .hero-badge {
+    margin-bottom: 11px !important;
+  }
+
+  .hero.hero-fullscreen h1 {
+    font-size: 31px !important;
+  }
+
+  .hero.hero-fullscreen .hero-description {
+    margin-top: 11px !important;
+    margin-bottom: 15px !important;
+
+    font-size: 11.5px !important;
+  }
+
+  .hero.hero-fullscreen .hero-actions {
+    gap: 7px !important;
+  }
+
+  .hero.hero-fullscreen .hero-actions .btn {
+    height: 41px;
+    min-height: 41px !important;
+  }
+
+  .hero.hero-fullscreen .hero-location {
+    margin-top: 9px !important;
+  }
+
+  .hero.hero-fullscreen .hero-economy {
+    padding: 13px !important;
+  }
+
+  .hero.hero-fullscreen .hero-economy-main {
+    margin-top: 14px !important;
+    padding-bottom: 12px !important;
+  }
+
+  .hero.hero-fullscreen .hero-economy-value {
+    font-size: 30px !important;
+  }
+}
+
+/* =========================================================
+   AJUSTE FINAL — NAVBAR + HERO MOBILE
+   Mantém o mesmo design do desktop
+   ========================================================= */
+
+@media (max-width: 650px) {
+
+  /* -------------------------------------------------------
+     NAVBAR
+     ------------------------------------------------------- */
+
+  .navbar {
+    height: 72px !important;
+  }
+
+  .navbar-container {
+    min-height: 72px !important;
+
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+
+  .navbar-logo {
+    margin-left: 0 !important;
+
+    padding: 0 !important;
+
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  .navbar-logo img {
+    width: 116px !important;
+    height: auto !important;
+  }
+
+  .navbar-menu-button {
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+
+  /* -------------------------------------------------------
+     HERO
+     ------------------------------------------------------- */
+
+  .hero.hero-fullscreen {
+    min-height: 100svh !important;
+    height: auto !important;
+
+    display: flex !important;
+    align-items: flex-start !important;
+
+    overflow: hidden !important;
+  }
+
+
+  /* -------------------------------------------------------
+     CONTAINER
+     ------------------------------------------------------- */
+
+  .hero.hero-fullscreen .hero-container {
+    width: calc(100% - 28px) !important;
+
+    min-height: 100svh !important;
+
+    margin: 0 auto !important;
+
+    padding-top: 118px !important;
+    padding-bottom: 32px !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    justify-content: flex-start !important;
+    align-items: stretch !important;
+
+    gap: 19px !important;
+  }
+
+
+  /* -------------------------------------------------------
+     CONTEÚDO
+     ------------------------------------------------------- */
+
+  .hero.hero-fullscreen .hero-content {
+    width: 100% !important;
+    max-width: none !important;
+  }
+
+
+  /* -------------------------------------------------------
+     BADGE
+     ------------------------------------------------------- */
+
+  .hero.hero-fullscreen .hero-badge {
+    margin-top: 0 !important;
+    margin-bottom: 14px !important;
+
+    padding: 7px 10px !important;
+
+    font-size: 8px !important;
+
+    line-height: 1;
+
+    gap: 6px;
+  }
+
+  .hero.hero-fullscreen .hero-badge svg {
+    width: 13px !important;
+    height: 13px !important;
+  }
+
+
+  /* -------------------------------------------------------
+     TÍTULO
+     ------------------------------------------------------- */
+
+  .hero.hero-fullscreen h1 {
+    max-width: 365px !important;
+
+    margin: 0 !important;
+
+    font-size: 35px !important;
+
+    line-height: 0.98 !important;
+
+    letter-spacing: -0.045em !important;
+  }
+
+
+  /* -------------------------------------------------------
+     DESCRIÇÃO
+     ------------------------------------------------------- */
+
+  .hero.hero-fullscreen .hero-description {
+    max-width: 350px !important;
+
+    margin-top: 15px !important;
+    margin-bottom: 19px !important;
+
+    font-size: 12.5px !important;
+
+    line-height: 1.55 !important;
+  }
+
+
+  /* -------------------------------------------------------
+     BOTÕES
+     ------------------------------------------------------- */
+
+  .hero.hero-fullscreen .hero-actions {
+    width: 100% !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 8px !important;
+  }
+
+  .hero.hero-fullscreen .hero-actions .btn {
+    width: 100% !important;
+
+    min-height: 44px !important;
+    height: 44px !important;
+
+    padding: 0 12px !important;
+
+    font-size: 8.5px !important;
+
+    letter-spacing: 0.03em !important;
+  }
+
+
+  /* -------------------------------------------------------
+     LOCALIZAÇÃO
+     ------------------------------------------------------- */
+
+  .hero.hero-fullscreen .hero-location {
+    margin-top: 11px !important;
+
+    font-size: 8.5px !important;
+
+    gap: 6px !important;
+  }
+
+  .hero.hero-fullscreen .hero-location svg {
+    width: 13px !important;
+    height: 13px !important;
+  }
+
+
+  /* -------------------------------------------------------
+     CARD DE ECONOMIA
+     ------------------------------------------------------- */
+
+  .hero.hero-fullscreen .hero-economy {
+    width: 100% !important;
+    max-width: none !important;
+
+    margin: 0 !important;
+
+    padding: 17px !important;
+
+    border-radius: 14px !important;
+  }
+
+  .hero.hero-fullscreen .hero-economy-header {
+    gap: 10px !important;
+  }
+
+  .hero.hero-fullscreen .hero-economy-title {
+    margin-top: 5px !important;
+
+    font-size: 15px !important;
+    line-height: 1.15 !important;
+  }
+
+  .hero.hero-fullscreen .hero-economy-icon {
+    width: 35px !important;
+    height: 35px !important;
+  }
+
+  .hero.hero-fullscreen .hero-economy-main {
+    margin-top: 17px !important;
+
+    padding-bottom: 14px !important;
+  }
+
+  .hero.hero-fullscreen .hero-economy-value {
+    font-size: 34px !important;
+  }
+
+  .hero.hero-fullscreen .hero-economy-month {
+    font-size: 9px !important;
+  }
+
+  .hero.hero-fullscreen .hero-economy-grid {
+    grid-template-columns: 1fr 1fr !important;
+
+    gap: 8px !important;
+
+    margin-top: 12px !important;
+  }
+
+  .hero.hero-fullscreen .hero-economy-item {
+    padding: 10px !important;
+  }
+
+  .hero.hero-fullscreen .hero-economy-item span {
+    font-size: 7.5px !important;
+  }
+
+  .hero.hero-fullscreen .hero-economy-item strong {
+    font-size: 12px !important;
+  }
+
+  .hero.hero-fullscreen .hero-economy-note {
+    margin-top: 9px !important;
+
+    font-size: 6.5px !important;
+  }
+
+
+  /* -------------------------------------------------------
+     SCROLL
+     ------------------------------------------------------- */
+
+  .hero.hero-fullscreen .hero-scroll {
+    display: none !important;
+  }
+}
+
+
+/* =========================================================
+   CELULARES MUITO PEQUENOS
+   ========================================================= */
+
+@media (max-width: 380px) {
+
+  .hero.hero-fullscreen .hero-container {
+    padding-top: 112px !important;
+  }
+
+  .hero.hero-fullscreen h1 {
+    font-size: 32px !important;
+  }
+
+  .hero.hero-fullscreen .hero-description {
+    font-size: 12px !important;
+  }
+
+  .hero.hero-fullscreen .hero-economy {
+    padding: 15px !important;
+  }
+
+  .hero.hero-fullscreen .hero-economy-value {
+    font-size: 31px !important;
+  }
+}
+
+/* =========================================================
+   VÍDEO HERO — FULLSCREEN EM TODOS OS DISPOSITIVOS
+   ========================================================= */
+
+/* Desktop / padrão */
+.hero.hero-fullscreen {
+  position: relative;
+
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100svh;
+
+  overflow: hidden;
+}
+
 .hero.hero-fullscreen .hero-background {
   position: absolute !important;
+
   inset: 0 !important;
 
   width: 100% !important;
@@ -4813,7 +5495,6 @@ body {
   pointer-events: none;
 }
 
-/* Vídeo */
 .hero.hero-fullscreen .hero-video {
   position: absolute !important;
 
@@ -4823,26 +5504,23 @@ body {
   width: 100% !important;
   height: 100% !important;
 
+  min-width: 100% !important;
+  min-height: 100% !important;
+
   transform: translate(-50%, -50%) !important;
 
   object-fit: cover !important;
 
-  /* Ajuste principal do enquadramento */
-  object-position: 50% 50% !important;
-
-  min-width: 0 !important;
-  min-height: 0 !important;
-
   display: block !important;
 
-  z-index: 0 !important;
+  border: 0 !important;
 
-  pointer-events: none;
+  z-index: 0 !important;
 }
 
-/* Overlay */
 .hero.hero-fullscreen .hero-overlay {
   position: absolute !important;
+
   inset: 0 !important;
 
   width: 100% !important;
@@ -4853,46 +5531,108 @@ body {
   pointer-events: none;
 }
 
-/* Conteúdo acima do vídeo */
 .hero.hero-fullscreen .hero-container {
   position: relative;
-  z-index: 2;
+
+  z-index: 5;
 }
 
-/* Elementos internos */
 .hero.hero-fullscreen .hero-content,
 .hero.hero-fullscreen .hero-economy,
 .hero.hero-fullscreen .hero-scroll {
   position: relative;
-  z-index: 3;
+
+  z-index: 6;
 }
 
-/* =========================================================
-   DESKTOP
-   ========================================================= */
-
-@media (min-width: 1201px) {
-  .hero.hero-fullscreen .hero-video {
-    object-position: 50% 48% !important;
-  }
-}
-
-/* =========================================================
-   TABLET
-   ========================================================= */
-
-@media (max-width: 1200px) {
-  .hero.hero-fullscreen .hero-video {
-    object-position: 54% 50% !important;
-  }
-}
 
 /* =========================================================
    MOBILE
    ========================================================= */
 
-@media (max-width: 768px) {
+@media (max-width: 650px) {
+
+  .hero.hero-fullscreen {
+    width: 100% !important;
+
+    min-height: 100svh !important;
+    min-height: 100dvh !important;
+
+    height: auto !important;
+
+    overflow: hidden !important;
+  }
+
+  .hero.hero-fullscreen .hero-background {
+    position: absolute !important;
+
+    inset: 0 !important;
+
+    width: 100% !important;
+    height: 100% !important;
+
+    overflow: hidden !important;
+  }
+
   .hero.hero-fullscreen .hero-video {
-    object-position: 58% 50% !important;
+    position: absolute !important;
+
+    top: 50% !important;
+    left: 50% !important;
+
+    width: 100vw !important;
+    height: 100vh !important;
+
+    min-width: 100vw !important;
+    min-height: 100vh !important;
+
+    transform: translate(-50%, -50%) !important;
+
+    object-fit: cover !important;
+
+    object-position: center center !important;
+
+    max-width: none !important;
+
+    display: block !important;
+  }
+
+  .hero.hero-fullscreen .hero-overlay {
+    inset: 0 !important;
+
+    width: 100% !important;
+    height: 100% !important;
   }
 }
+
+
+/* =========================================================
+   CELULARES COM A BARRA DO NAVEGADOR
+   ========================================================= */
+
+@media (max-width: 650px) {
+
+  .hero.hero-fullscreen .hero-video {
+    width: 100% !important;
+    height: 100% !important;
+
+    min-width: 100% !important;
+    min-height: 100% !important;
+
+    object-fit: cover !important;
+  }
+}
+
+
+/* =========================================================
+   TELAS MUITO PEQUENAS
+   ========================================================= */
+
+@media (max-width: 380px) {
+
+  .hero.hero-fullscreen .hero-video {
+    object-position: 57% center !important;
+  }
+}
+
+
