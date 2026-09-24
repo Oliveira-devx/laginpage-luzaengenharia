@@ -204,6 +204,34 @@ export default function Footer() {
         </ScrollReveal>
 
         <div className="footer-bottom">
+          <div className="footer-dev-badge" style={{
+            display: 'flex',
+            justifyContent: 'center',
+            marginBottom: '20px',
+            width: '100%'
+          }}>
+            <div style={{
+              backgroundColor: 'rgba(255, 255, 255, 0.05)',
+              backdropFilter: 'blur(10px)',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
+              padding: '8px 20px',
+              borderRadius: '50px',
+              fontSize: '14px',
+              color: '#fff',
+              fontWeight: '500',
+              letterSpacing: '0.5px',
+              boxShadow: '0 4px 15px rgba(0,0,0,0.2)',
+              transition: 'all 0.3s ease',
+              cursor: 'default',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px'
+            }}>
+              <span style={{ color: '#facc15' }}>✦</span>
+              Desenvolvido por <strong style={{ color: '#facc15', fontWeight: '700' }}>InovaX Soluções</strong>
+            </div>
+          </div>
+
           <div className="footer-copyright">
             <span>
               © {currentYear} Luza Engenharia.
