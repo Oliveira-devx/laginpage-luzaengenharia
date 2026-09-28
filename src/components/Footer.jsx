@@ -210,26 +210,35 @@ export default function Footer() {
             marginBottom: '20px',
             width: '100%'
           }}>
-            <div style={{
-              backgroundColor: 'rgba(255, 255, 255, 0.05)',
-              backdropFilter: 'blur(10px)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
-              padding: '8px 20px',
-              borderRadius: '50px',
-              fontSize: '14px',
-              color: '#fff',
-              fontWeight: '500',
-              letterSpacing: '0.5px',
-              boxShadow: '0 4px 15px rgba(0,0,0,0.2)',
-              transition: 'all 0.3s ease',
-              cursor: 'default',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px'
-            }}>
-              <span style={{ color: '#facc15' }}>✦</span>
-              Desenvolvido por <strong style={{ color: '#facc15', fontWeight: '700' }}>InovaX Soluções</strong>
-            </div>
+            <a
+              href="https://www.instagram.com/lxshenrique?stkn=Ynk1dGJ5Y21xNmo0&utm_source=qr"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                textDecoration: 'none'
+              }}
+            >
+              <div style={{
+                backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                backdropFilter: 'blur(10px)',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                padding: '8px 20px',
+                borderRadius: '50px',
+                fontSize: '14px',
+                color: '#fff',
+                fontWeight: '500',
+                letterSpacing: '0.5px',
+                boxShadow: '0 4px 15px rgba(0,0,0,0.2)',
+                transition: 'all 0.3s ease',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px'
+              }}>
+                <span style={{ color: '#facc15' }}>✦</span>
+                Desenvolvido por <strong style={{ color: '#facc15', fontWeight: '700' }}>Devph.tech</strong>
+              </div>
+            </a>
           </div>
 
           <div className="footer-copyright">
