@@ -236,7 +236,7 @@ export default function Footer() {
                 gap: '8px'
               }}>
                 <span style={{ color: '#facc15' }}>✦</span>
-                Desenvolvido por <strong style={{ color: '#facc15', fontWeight: '700' }}>Devph.tech</strong>
+                    Desenvolvido por <strong style={{ color: '#facc15', fontWeight: '700' }}>Devph.tech</strong>
               </div>
             </a>
           </div>
