@@ -1,5 +1,4 @@
 <!doctype html>
-
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
@@ -10,9 +9,7 @@
     />
 
     <!-- SEO principal -->
-    <title>
-      Luza Solar | Energia Solar em Teresina e no Piauí
-    </title>
+    <title>Luza Solar | Energia Solar em Teresina e no Piauí</title>
 
     <meta
       name="description"
@@ -129,12 +126,31 @@
       }
     </script>
 
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-MHQY4Q8XT6"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <!-- Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-MHQY4Q8XT6"
+    ></script>
 
-  gtag('config', 'G-MHQY4Q8XT6');
-</script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+
+      gtag("js", new Date());
+
+      gtag("config", "G-MHQY4Q8XT6");
+    </script>
+  </head>
+
+  <body>
+    <div id="root"></div>
+
+    <script
+      type="module"
+      src="/src/main.jsx"
+    ></script>
+  </body>
+</html>
