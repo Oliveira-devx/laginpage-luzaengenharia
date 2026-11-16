@@ -11,26 +11,13 @@ import {
 import ScrollReveal from "./ScrollReveal";
 
 const navigationLinks = [
-  {
-    label: "Início",
-    href: "#inicio",
-  },
-  {
-    label: "Como funciona",
-    href: "#como-funciona",
-  },
-  {
-    label: "Sobre nós",
-    href: "#sobre",
-  },
-  {
-    label: "Serviços",
-    href: "#servicos",
-  },
-  {
-    label: "FAQ",
-    href: "#faq",
-  },
+  { label: "Simulador de economia", href: "#simulador" },
+  { label: "Soluções", href: "#solucoes" },
+  { label: "Projetos", href: "#projetos" },
+  { label: "Como funciona", href: "#como-funciona" },
+  { label: "Residencial e comercial", href: "#residencial-comercial" },
+  { label: "Sobre nós", href: "#sobre" },
+  { label: "FAQ", href: "#faq" },
 ];
 
 const serviceLinks = [
@@ -67,7 +54,8 @@ export default function Footer() {
                 aria-label="Luza Engenharia - Início"
               >
                 <img
-                  src="/images/logo-branca.png"
+                  src="/images/logo-luza-light.webp"
+                  loading="lazy"
                   alt="Luza Engenharia"
                 />
               </a>

@@ -23,7 +23,9 @@ const initialForm = {
 };
 
 const projectOptions = [
-  "Energia solar",
+  "Energia solar residencial",
+  "Energia solar comercial",
+  "Ampliação de sistema solar",
   "Instalação elétrica",
   "Limpeza e manutenção",
   "Projeto elétrico",

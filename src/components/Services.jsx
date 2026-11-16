@@ -11,6 +11,8 @@ import {
   useReducedMotion,
 } from "framer-motion";
 
+import { SplitLines } from "./SplitText";
+
 const services = [
   {
     number: "01",
@@ -75,7 +77,6 @@ export default function Services() {
                 ? false
                 : {
                     opacity: 0,
-                    x: -80,
                   }
             }
             whileInView={
@@ -83,7 +84,6 @@ export default function Services() {
                 ? undefined
                 : {
                     opacity: 1,
-                    x: 0,
                   }
             }
             viewport={{
@@ -104,13 +104,12 @@ export default function Services() {
               NOSSOS SERVIÇOS
             </span>
 
-            <h2>
-              SOLUÇÕES PARA
-              <span>
-                {" "}
-                CADA NECESSIDADE.
-              </span>
-            </h2>
+            <SplitLines
+              lines={[
+                { text: "SERVIÇOS DE ENGENHARIA" },
+                { text: "ALÉM DO SOLAR.", accent: true },
+              ]}
+            />
           </motion.div>
 
           <motion.p
@@ -136,7 +135,7 @@ export default function Services() {
             }}
             transition={{
               duration: 0.75,
-              delay: 0.08,
+              delay: 0.45,
               ease: [
                 0.22,
                 1,

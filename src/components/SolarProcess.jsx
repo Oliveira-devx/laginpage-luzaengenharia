@@ -14,6 +14,8 @@ import {
   useReducedMotion,
 } from "framer-motion";
 
+import { SplitLines, Side } from "./SplitText";
+
 const stages = [
   {
     id: "dia",
@@ -870,7 +872,6 @@ export default function SolarProcess() {
               ? false
               : {
                   opacity: 0,
-                  y: 45,
                 }
           }
           whileInView={
@@ -878,7 +879,6 @@ export default function SolarProcess() {
               ? undefined
               : {
                   opacity: 1,
-                  y: 0,
                 }
           }
           viewport={{
@@ -899,19 +899,18 @@ export default function SolarProcess() {
             COMO FUNCIONA
           </span>
 
-          <h2>
-            DO SOL PARA A SUA
-            <span>
-              {" "}
-              ECONOMIA.
-            </span>
-          </h2>
+          <SplitLines
+            lines={[
+              { text: "DO SOL PARA A SUA" },
+              { text: "ECONOMIA.", accent: true },
+            ]}
+          />
 
-          <p>
+          <Side from="right" delay={0.45}>
             Entenda de forma simples como a
             energia solar pode fazer parte do
             seu dia a dia.
-          </p>
+          </Side>
         </motion.div>
 
         {/* =========================================

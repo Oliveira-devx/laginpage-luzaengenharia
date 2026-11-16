@@ -35,7 +35,7 @@ const essenceItems = [
 
 export default function Essence() {
   return (
-    <section className="section essence">
+    <section className="section essence" id="essencia">
       <div className="container">
         <ScrollReveal>
           <div className="essence-heading">

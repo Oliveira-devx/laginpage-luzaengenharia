@@ -1,447 +1,312 @@
 import {
-  Calculator,
-  CircleDollarSign,
-  Zap,
-  TrendingDown,
   ArrowRight,
-  RotateCcw,
+  Info,
+  CalendarCheck,
+  PlusCircle,
+  LayoutGrid,
+  MessageCircle,
+  PiggyBank,
+  Sun,
+  TrendingDown,
+  Zap,
 } from "lucide-react";
 
-import { useMemo, useState } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useMemo, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 
 import ScrollReveal from "./ScrollReveal";
+import { SplitLines, Side } from "./SplitText";
+import { createWhatsAppUrl } from "../config/whatsapp";
+import { EVENTS, openTechVisit } from "../config/events";
+import {
+  ENERGIA,
+  calcularEconomia,
+  formatBRL,
+  formatNumber,
+} from "../config/energia";
 
-const INITIAL_VALUES = {
-  bill: "",
-  consumption: "",
-};
+const MIN = 100;
+const MAX = 5000;
+const PRESETS = [250, 450, 700, 1200, 2500];
 
-function formatCurrency(value) {
-  return new Intl.NumberFormat("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-    minimumFractionDigits: 2,
-  }).format(value);
+function toNumber(text) {
+  return Number(String(text).replace(/\D/g, "")) || 0;
+}
+
+function AnimatedValue({ value, format }) {
+  return (
+    <AnimatePresence mode="popLayout" initial={false}>
+      <motion.span
+        key={Math.round(value)}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -10 }}
+        transition={{ duration: 0.22 }}
+      >
+        {format(value)}
+      </motion.span>
+    </AnimatePresence>
+  );
 }
 
 export default function Simulator() {
-  const [values, setValues] = useState(INITIAL_VALUES);
+  const [bill, setBill] = useState(650);
+  const [text, setText] = useState("650");
 
-  const [hasCalculated, setHasCalculated] =
-    useState(false);
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-
-    const sanitizedValue = value.replace(
-      /[^0-9.,]/g,
-      ""
-    );
-
-    setValues((current) => ({
-      ...current,
-      [name]: sanitizedValue,
-    }));
-
-    setHasCalculated(false);
-  };
-
-  const parseNumber = (value) => {
-    if (!value) {
-      return 0;
-    }
-
-    const normalized = value
-      .replace(/\./g, "")
-      .replace(",", ".");
-
-    return Number(normalized) || 0;
-  };
-
-  const result = useMemo(() => {
-    const bill = parseNumber(values.bill);
-
-    const consumption = parseNumber(
-      values.consumption
-    );
-
-    if (bill <= 0) {
-      return null;
-    }
-
-    /*
-      Estimativa inicial de economia de 70%.
-
-      Ou seja:
-      - 70% da conta é considerada como economia;
-      - 30% permanece como valor estimado da conta.
-
-      O resultado é apenas uma estimativa inicial
-      e não substitui um dimensionamento técnico.
-    */
-
-    const estimatedSolarBill = bill * 0.30;
-
-    const monthlySavings =
-      bill - estimatedSolarBill;
-
-    const annualSavings =
-      monthlySavings * 12;
-
-    return {
-      bill,
-      consumption,
-      estimatedSolarBill,
-      monthlySavings,
-      annualSavings,
+  useEffect(() => {
+    const handle = (event) => {
+      const value = Math.min(Math.max(toNumber(event.detail?.value), MIN), 20000);
+      setBill(value);
+      setText(String(value));
     };
-  }, [values]);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+    window.addEventListener(EVENTS.SET_BILL, handle);
+    return () => window.removeEventListener(EVENTS.SET_BILL, handle);
+  }, []);
 
-    const bill = parseNumber(values.bill);
+  const result = useMemo(() => calcularEconomia(bill), [bill]);
 
-    if (bill <= 0) {
-      setHasCalculated(false);
-      return;
-    }
-
-    setHasCalculated(true);
+  const handleText = (event) => {
+    const digits = event.target.value.replace(/\D/g, "").slice(0, 6);
+    setText(digits);
+    setBill(toNumber(digits));
   };
 
-  const handleReset = () => {
-    setValues(INITIAL_VALUES);
-    setHasCalculated(false);
+  const handleRange = (event) => {
+    const value = Number(event.target.value);
+    setBill(value);
+    setText(String(value));
   };
+
+  const rangePercent = ((Math.min(Math.max(bill, MIN), MAX) - MIN) / (MAX - MIN)) * 100;
+
+  const whatsappMessage = result
+    ? [
+        "Olá, Luza Engenharia! ☀️",
+        "",
+        "Fiz a simulação no site e quero uma proposta personalizada:",
+        "",
+        `*Conta atual:* ${formatBRL(result.conta)}/mês`,
+        `*Consumo estimado:* ${formatNumber(result.consumo)} kWh/mês`,
+        `*Sistema sugerido:* ${formatNumber(result.kwp, 2)} kWp (${result.modulos} módulos)`,
+        `*Conta estimada com solar:* ${formatBRL(result.novaConta)}/mês`,
+        `*Economia estimada:* ${formatBRL(result.economiaMensal)}/mês`,
+        "",
+        "(Valores de simulação — aguardo a análise técnica.)",
+      ].join("\n")
+    : "";
 
   return (
-    <section
-      className="section simulator"
-      id="simulador"
-    >
+    <section className="section simulator" id="simulador">
+      <div className="simulator-bg" aria-hidden="true" />
+
       <div className="container">
-
-        <ScrollReveal>
-          <div className="simulator-heading">
-
-            <span className="eyebrow">
-              SIMULE SEU SISTEMA
-            </span>
-
-            <h2>
-              QUANTO VOCÊ PODE
-              <span> ECONOMIZAR?</span>
-            </h2>
-
-            <p>
-              Informe alguns dados da sua conta de
-              energia e tenha uma estimativa inicial
-              do potencial de economia.
-            </p>
-
+        <div className="simulator-heading">
+            <span className="eyebrow">CALCULADORA SOLAR • EQUATORIAL PIAUÍ</span>
+            <SplitLines
+              lines={[
+                { text: "QUANTO VOCÊ PAGA DE LUZ?" },
+                { text: "VEJA QUANTO PODE ECONOMIZAR.", accent: true },
+              ]}
+            />
+            <Side from="right" delay={0.45}>
+              Digite o valor médio da sua conta. Calculamos na hora com base na
+              tarifa da Equatorial Piauí, na irradiação solar de Teresina e nas
+              regras da Lei 14.300.
+            </Side>
           </div>
-        </ScrollReveal>
 
         <ScrollReveal delay={0.1}>
-          <div className="simulator-wrapper">
+          <div className="calc">
+            {/* ENTRADA */}
+            <div className="calc-input">
+              <span className="calc-step">1. SUA CONTA DE ENERGIA</span>
 
-            {/* FORMULÁRIO */}
-            <div className="simulator-form-area">
+              <label htmlFor="bill" className="calc-label">
+                Valor médio mensal
+              </label>
 
-              <div className="simulator-form-header">
-
-                <div className="simulator-form-icon">
-                  <Calculator size={22} />
-                </div>
-
-                <div>
-                  <span>
-                    SIMULAÇÃO RÁPIDA
-                  </span>
-
-                  <h3>
-                    Conte um pouco sobre seu consumo
-                  </h3>
-                </div>
-
+              <div className="calc-money">
+                <span>R$</span>
+                <input
+                  id="bill"
+                  type="text"
+                  inputMode="numeric"
+                  value={text ? formatNumber(toNumber(text)) : ""}
+                  onChange={handleText}
+                  placeholder="650"
+                  aria-describedby="bill-help"
+                />
+                <small>/mês</small>
               </div>
 
-              <form
-                className="simulator-form"
-                onSubmit={handleSubmit}
-              >
+              <input
+                className="calc-range"
+                type="range"
+                min={MIN}
+                max={MAX}
+                step={10}
+                value={Math.min(Math.max(bill, MIN), MAX)}
+                onChange={handleRange}
+                style={{ "--range": `${rangePercent}%` }}
+                aria-label="Ajustar valor da conta"
+              />
 
-                <div className="form-field">
+              <div className="calc-range-labels">
+                <span>{formatBRL(MIN)}</span>
+                <span>{formatBRL(MAX)}+</span>
+              </div>
 
-                  <label htmlFor="bill">
-                    Valor médio da sua conta
-                  </label>
-
-                  <div className="input-wrapper">
-
-                    <span className="input-prefix">
-                      R$
-                    </span>
-
-                    <input
-                      id="bill"
-                      name="bill"
-                      type="text"
-                      inputMode="decimal"
-                      placeholder="Ex.: 650"
-                      value={values.bill}
-                      onChange={handleChange}
-                      required
-                    />
-
-                  </div>
-
-                </div>
-
-                <div className="form-field">
-
-                  <label htmlFor="consumption">
-                    Consumo médio mensal
-                  </label>
-
-                  <div className="input-wrapper">
-
-                    <input
-                      id="consumption"
-                      name="consumption"
-                      type="text"
-                      inputMode="decimal"
-                      placeholder="Ex.: 500"
-                      value={values.consumption}
-                      onChange={handleChange}
-                    />
-
-                    <span className="input-suffix">
-                      kWh
-                    </span>
-
-                  </div>
-
-                </div>
-
-                <button
-                  type="submit"
-                  className="btn btn-primary simulator-button"
-                >
-                  <Calculator size={18} />
-
-                  <span>
-                    CALCULAR MINHA ECONOMIA
-                  </span>
-
-                  <ArrowRight size={18} />
-                </button>
-
-                {hasCalculated && (
-                  <motion.button
+              <div className="calc-presets" role="group" aria-label="Valores rápidos">
+                {PRESETS.map((preset) => (
+                  <button
+                    key={preset}
                     type="button"
-                    className="simulator-reset"
-                    onClick={handleReset}
-                    initial={{
-                      opacity: 0,
-                    }}
-                    animate={{
-                      opacity: 1,
+                    className={`chip ${bill === preset ? "is-active" : ""}`}
+                    onClick={() => {
+                      setBill(preset);
+                      setText(String(preset));
                     }}
                   >
-                    <RotateCcw size={15} />
-
-                    <span>
-                      Fazer nova simulação
-                    </span>
-
-                  </motion.button>
-                )}
-
-              </form>
-
-              <div className="simulator-disclaimer">
-
-                <span>i</span>
-
-                <p>
-                  Esta é uma estimativa inicial.
-                  O resultado real depende do consumo,
-                  tarifa, localização, cobrança mínima,
-                  disponibilidade e dimensionamento
-                  técnico do sistema.
-                </p>
-
+                    {formatBRL(preset)}
+                  </button>
+                ))}
               </div>
 
+              <p id="bill-help" className="calc-help">
+                Tarifa de referência: {formatBRL(ENERGIA.tarifaFinal, 2)}/kWh com
+                impostos (B1 residencial — reajuste ANEEL dez/2025). Valores
+                estimados; a proposta final depende da visita técnica.
+              </p>
+
+              <a href="#residencial-comercial" className="calc-industrial-link">
+                <PlusCircle size={18} />
+                <span>
+                  Você já tem sistema solar e quer aumentar?
+                  <strong> Solicite sua ampliação</strong>
+                </span>
+                <ArrowRight size={16} />
+              </a>
             </div>
 
             {/* RESULTADO */}
-            <div className="simulator-result-area">
-
-              {!hasCalculated || !result ? (
-
+            <div className="calc-result" aria-live="polite">
+              {!result ? (
                 <div className="simulator-empty">
-
                   <div className="simulator-empty-icon">
                     <Zap size={30} />
                   </div>
-
-                  <span>
-                    SUA ESTIMATIVA APARECERÁ AQUI
-                  </span>
-
-                  <p>
-                    Preencha o valor da sua conta para
-                    visualizar uma projeção inicial.
-                  </p>
-
+                  <span>DIGITE O VALOR DA SUA CONTA</span>
+                  <p>Informe um valor a partir de R$ 100 para ver sua economia.</p>
                 </div>
-
               ) : (
-
-                <motion.div
-                  className="simulator-result"
-                  initial={{
-                    opacity: 0,
-                    y: 20,
-                  }}
-                  animate={{
-                    opacity: 1,
-                    y: 0,
-                  }}
-                  transition={{
-                    duration: 0.4,
-                  }}
-                >
-
-                  <div className="simulator-result-top">
-
-                    <div>
-
-                      <span className="eyebrow">
-                        ESTIMATIVA INICIAL
-                      </span>
-
-                      <h3>
-                        Seu potencial de economia
-                      </h3>
-
-                    </div>
-
-                    <div className="simulator-result-icon">
-                      <TrendingDown size={22} />
-                    </div>
-
+                <>
+                  <div className="calc-result-head">
+                    <span className="calc-step calc-step-light">2. SUA CONTA COM ENERGIA SOLAR</span>
+                    <span className="calc-sim-tag">
+                      <Info size={13} /> SIMULAÇÃO
+                    </span>
                   </div>
 
-                  <div className="simulator-main-result">
-
-                    <span>
-                      ECONOMIA ESTIMADA POR MÊS
-                    </span>
-
+                  <div className="calc-hero-value">
+                    <small>Valor estimado da sua conta de energia</small>
                     <strong>
-                      {formatCurrency(
-                        result.monthlySavings
-                      )}
+                      <AnimatedValue value={result.novaConta} format={(v) => formatBRL(v)} />
+                      <em>/mês</em>
                     </strong>
-
+                    <div className="calc-hero-sub">
+                      <span>Hoje você paga <s>{formatBRL(result.conta)}</s></span>
+                      <div className="calc-badge">
+                        <TrendingDown size={15} />
+                        Economia estimada de {formatBRL(result.economiaMensal)}/mês ({formatNumber(result.percentual * 100)}%)
+                      </div>
+                    </div>
                   </div>
 
-                  <div className="simulator-result-grid">
+                  <div className="calc-disclaimer" role="note">
+                    <Info size={16} />
+                    <p>
+                      <strong>Isto é apenas uma simulação.</strong> Os valores são estimativas
+                      calculadas a partir de médias de tarifa e de irradiação solar e podem variar.
+                      O valor real da conta e da economia só é confirmado após a visita técnica e
+                      a análise do seu histórico de consumo.
+                    </p>
+                  </div>
 
-                    <div className="simulator-result-card">
-
-                      <CircleDollarSign size={18} />
-
-                      <span>
-                        Conta atual
-                      </span>
-
-                      <strong>
-                        {formatCurrency(
-                          result.bill
-                        )}
-                      </strong>
-
+                  <div className="calc-compare">
+                    <div className="calc-bar">
+                      <span>Hoje</span>
+                      <div className="calc-bar-track">
+                        <motion.div className="calc-bar-fill is-old" animate={{ width: "100%" }} />
+                      </div>
+                      <strong>{formatBRL(result.conta)}</strong>
                     </div>
+                    <div className="calc-bar">
+                      <span>Com solar</span>
+                      <div className="calc-bar-track">
+                        <motion.div
+                          className="calc-bar-fill is-new"
+                          animate={{ width: `${Math.max(6, (result.novaConta / result.conta) * 100)}%` }}
+                          transition={{ duration: 0.5 }}
+                        />
+                      </div>
+                      <strong>{formatBRL(result.novaConta)}</strong>
+                    </div>
+                  </div>
 
-                    <div className="simulator-result-card">
-
+                  <div className="calc-grid">
+                    <div className="calc-card">
+                      <PiggyBank size={18} />
+                      <span>Economia em 1 ano</span>
+                      <strong>{formatBRL(result.economiaAnual)}</strong>
+                    </div>
+                    <div className="calc-card">
+                      <Sun size={18} />
+                      <span>Economia em 25 anos</span>
+                      <strong>{formatBRL(result.economiaVidaUtil)}</strong>
+                    </div>
+                    <div className="calc-card">
                       <Zap size={18} />
-
-                      <span>
-                        Conta estimada
-                      </span>
-
-                      <strong>
-                        {formatCurrency(
-                          result.estimatedSolarBill
-                        )}
-                      </strong>
-
+                      <span>Sistema sugerido</span>
+                      <strong>{formatNumber(result.kwp, 2)} kWp</strong>
+                      <small>{result.modulos} módulos • ~{formatNumber(result.area)} m²</small>
                     </div>
-
-                    <div className="simulator-result-card simulator-result-card-wide">
-
-                      <TrendingDown size={18} />
-
-                      <span>
-                        Economia estimada no ano
-                      </span>
-
-                      <strong>
-                        {formatCurrency(
-                          result.annualSavings
-                        )}
-                      </strong>
-
+                    <div className="calc-card">
+                      <LayoutGrid size={18} />
+                      <span>Retorno estimado</span>
+                      <strong>≈ {formatNumber(result.payback, 1)} anos</strong>
+                      <small>Investimento ~{formatBRL(result.investimento)}</small>
                     </div>
-
                   </div>
 
-                  {result.consumption > 0 && (
+                  <div className="calc-actions">
+                    <a
+                      href={createWhatsAppUrl(whatsappMessage)}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="btn btn-primary"
+                      onClick={() => window.gtag?.("event", "generate_lead", { lead_type: "simulador", value: result.economiaMensal })}
+                    >
+                      <MessageCircle size={18} />
+                      <span>RECEBER MINHA PROPOSTA</span>
+                    </a>
+                    <button type="button" className="btn btn-outline-light" onClick={() => openTechVisit("simulador")}>
+                      <CalendarCheck size={18} />
+                      <span>AGENDAR VISITA TÉCNICA</span>
+                    </button>
+                  </div>
 
-                    <div className="simulator-consumption">
-
-                      <span>
-                        Consumo informado
-                      </span>
-
-                      <strong>
-                        {result.consumption.toLocaleString(
-                          "pt-BR"
-                        )}{" "}
-                        kWh/mês
-                      </strong>
-
-                    </div>
-
-                  )}
-
-                  <a
-                    href="#contato"
-                    className="simulator-result-cta"
-                  >
-                    <span>
-                      Quero uma análise personalizada
-                    </span>
-
-                    <ArrowRight size={18} />
-                  </a>
-
-                </motion.div>
-
+                  <p className="calc-footnote">
+                    Consumo estimado de {formatNumber(result.consumo)} kWh/mês • geração
+                    prevista de {formatNumber(result.geracao)} kWh/mês. Considera custo de
+                    disponibilidade, Fio B ({formatNumber(ENERGIA.percentualFioB * 100)}% em 2026)
+                    e iluminação pública.
+                  </p>
+                </>
               )}
-
             </div>
-
           </div>
         </ScrollReveal>
-
       </div>
     </section>
   );

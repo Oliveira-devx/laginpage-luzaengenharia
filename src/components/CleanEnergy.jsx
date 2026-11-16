@@ -32,7 +32,7 @@ const benefits = [
 
 export default function CleanEnergy() {
   return (
-    <section className="section clean-energy">
+    <section className="section clean-energy" id="energia-limpa">
       <div className="container">
         <div className="clean-energy-grid">
           <ScrollReveal>
