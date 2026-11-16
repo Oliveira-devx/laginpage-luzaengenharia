@@ -1,6 +1,6 @@
 import {
   ArrowRight,
-  CalendarCheck,
+  PlusCircle,
   Calculator,
   MapPin,
   MessageCircle,
@@ -14,7 +14,7 @@ import { motion } from "framer-motion";
 import ScrollReveal from "./ScrollReveal";
 import { SplitLines, Side, useAppReady } from "./SplitText";
 import { createWhatsAppUrl } from "../config/whatsapp";
-import { openTechVisit, sendBillToSimulator } from "../config/events";
+import { sendBillToSimulator } from "../config/events";
 import { calcularEconomia, formatBRL, formatNumber } from "../config/energia";
 
 /* =========================================================
@@ -165,7 +165,7 @@ export default function Hero() {
                   >
                     Energia solar projetada por engenheiros
                     para o seu consumo. Calcule sua economia
-                    agora e receba uma visita técnica gratuita.
+                    agora e receba sua proposta sem compromisso.
                   </Side>
                 </div>
 
@@ -235,17 +235,16 @@ export default function Hero() {
                   </span>
                 </motion.a>
 
-                <motion.button
-                  type="button"
+                <motion.a
+                  href="#residencial-comercial"
                   className="btn btn-secondary"
-                  onClick={() => openTechVisit("hero")}
                   whileHover={{ y: -4, scale: 1.02 }}
                   whileTap={{ scale: 0.97 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <CalendarCheck size={18} />
-                  <span>AGENDAR VISITA TÉCNICA</span>
-                </motion.button>
+                  <PlusCircle size={18} />
+                  <span>JÁ TENHO SOLAR, QUERO AMPLIAR</span>
+                </motion.a>
 
               </motion.div>
 
@@ -400,7 +399,7 @@ export default function Hero() {
           <p className="hero-economy-note">
             <strong>Apenas uma simulação.</strong> Valores estimados com
             base na tarifa da Equatorial Piauí e na irradiação de Teresina;
-            o valor real é confirmado na visita técnica.
+            o valor real é confirmado na análise do engenheiro.
           </p>
 
         </motion.div>
@@ -428,14 +427,10 @@ export default function Hero() {
           <ArrowRight size={18} />
         </a>
 
-        <button
-          type="button"
-          className="btn hero-dock-visit"
-          onClick={() => openTechVisit("hero-mobile")}
-        >
-          <CalendarCheck size={18} />
-          <span>AGENDAR VISITA TÉCNICA GRÁTIS</span>
-        </button>
+        <a href="#residencial-comercial" className="btn hero-dock-visit">
+          <PlusCircle size={18} />
+          <span>JÁ TENHO SOLAR, QUERO AMPLIAR</span>
+        </a>
       </motion.div>
 
       {/* =====================================================

@@ -19,6 +19,7 @@ const LABELS = {
   servicos: "Serviços",
   "residencial-comercial": "Residencial e comercial",
   sobre: "Sobre a Luza",
+  atendimento: "Atendimento",
   impacto: "Nosso impacto",
   essencia: "Nossa essência",
   "energia-limpa": "Energia limpa",

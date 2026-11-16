@@ -1,5 +1,4 @@
-import { CalendarCheck, Menu, MessageCircle, X, Sun } from "lucide-react";
-import { openTechVisit } from "../config/events";
+import { Menu, MessageCircle, X, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -89,15 +88,6 @@ export default function Navbar() {
         </nav>
 
         <div className="navbar-actions">
-          <button
-            type="button"
-            className="navbar-visit"
-            onClick={() => openTechVisit("navbar")}
-          >
-            <CalendarCheck size={17} />
-            <span>Visita técnica</span>
-          </button>
-
           <a
             href="#simulador"
             className="navbar-cta"
@@ -168,18 +158,6 @@ export default function Navbar() {
                 <Sun size={18} />
                 <span>Simular minha economia</span>
               </a>
-
-              <button
-                type="button"
-                className="navbar-mobile-whatsapp"
-                onClick={() => {
-                  closeMenu();
-                  openTechVisit("menu-mobile");
-                }}
-              >
-                <CalendarCheck size={18} />
-                <span>Agendar visita técnica gratuita</span>
-              </button>
 
               <a
                 href="#contato"

@@ -10,6 +10,7 @@ import Timeline from "./components/Timeline";
 import Services from "./components/Services";
 import About from "./components/About";
 import Testimonials from "./components/Testimonials";
+import Atendimento from "./components/Atendimento";
 import FAQ from "./components/FAQ";
 import FinalCTA from "./components/FinalCTA";
 import Contact from "./components/Contact";
@@ -17,7 +18,6 @@ import Footer from "./components/Footer";
 import ScrollProgress from "./components/ScrollProgress";
 import FloatingWhatsApp from "./components/FloatingWhatsApp";
 import Preloader from "./components/Preloader";
-import TechVisitModal from "./components/TechVisitModal";
 import MobileCTABar from "./components/MobileCTABar";
 import MobileSections from "./components/MobileSections";
 
@@ -52,6 +52,7 @@ export default function App() {
         <Services />
         <About />
         <Testimonials />
+        <Atendimento />
 
         {/* 4. Objeções e conversão final */}
         <FAQ />
@@ -63,7 +64,6 @@ export default function App() {
       <FloatingWhatsApp />
       <MobileCTABar />
       <MobileSections />
-      <TechVisitModal />
     </>
   );
 }

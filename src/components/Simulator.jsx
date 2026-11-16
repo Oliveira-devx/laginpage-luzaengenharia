@@ -1,7 +1,6 @@
 import {
   ArrowRight,
   Info,
-  CalendarCheck,
   PlusCircle,
   LayoutGrid,
   MessageCircle,
@@ -17,7 +16,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import ScrollReveal from "./ScrollReveal";
 import { SplitLines, Side } from "./SplitText";
 import { createWhatsAppUrl } from "../config/whatsapp";
-import { EVENTS, openTechVisit } from "../config/events";
+import { EVENTS } from "../config/events";
 import {
   ENERGIA,
   calcularEconomia,
@@ -176,7 +175,7 @@ export default function Simulator() {
               <p id="bill-help" className="calc-help">
                 Tarifa de referência: {formatBRL(ENERGIA.tarifaFinal, 2)}/kWh com
                 impostos (B1 residencial — reajuste ANEEL dez/2025). Valores
-                estimados; a proposta final depende da visita técnica.
+                estimados; a proposta final depende da análise do engenheiro.
               </p>
 
               <a href="#residencial-comercial" className="calc-industrial-link">
@@ -228,8 +227,8 @@ export default function Simulator() {
                     <p>
                       <strong>Isto é apenas uma simulação.</strong> Os valores são estimativas
                       calculadas a partir de médias de tarifa e de irradiação solar e podem variar.
-                      O valor real da conta e da economia só é confirmado após a visita técnica e
-                      a análise do seu histórico de consumo.
+                      O valor real da conta e da economia só é confirmado após a análise do engenheiro e
+                      do seu histórico de consumo.
                     </p>
                   </div>
 
@@ -290,10 +289,6 @@ export default function Simulator() {
                       <MessageCircle size={18} />
                       <span>RECEBER MINHA PROPOSTA</span>
                     </a>
-                    <button type="button" className="btn btn-outline-light" onClick={() => openTechVisit("simulador")}>
-                      <CalendarCheck size={18} />
-                      <span>AGENDAR VISITA TÉCNICA</span>
-                    </button>
                   </div>
 
                   <p className="calc-footnote">

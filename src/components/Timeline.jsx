@@ -1,9 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useInView, useReducedMotion } from "framer-motion";
-import { ArrowRight, CalendarCheck, Calculator, HardHat, LineChart, PencilRuler } from "lucide-react";
+import { ArrowRight, Calculator, ClipboardCheck, HardHat, LineChart, PencilRuler } from "lucide-react";
 
 import SectionHead from "./SectionHead";
-import { openTechVisit } from "../config/events";
 
 const etapas = [
   {
@@ -13,10 +12,9 @@ const etapas = [
     cta: { label: "Fazer simulação", href: "#simulador" },
   },
   {
-    icon: CalendarCheck,
-    title: "Visita técnica",
-    text: "Um técnico avalia telhado, estrutura, sombreamento e padrão de entrada no seu imóvel.",
-    cta: { label: "Agendar visita", visit: true },
+    icon: ClipboardCheck,
+    title: "Análise do imóvel",
+    text: "A engenharia avalia telhado, estrutura, sombreamento e padrão de entrada do seu imóvel.",
   },
   {
     icon: PencilRuler,
@@ -126,15 +124,11 @@ export default function Timeline() {
                 <h3>{etapa.title}</h3>
                 <p>{etapa.text}</p>
 
-                {etapa.cta && (etapa.cta.visit ? (
-                  <button type="button" className="btn btn-pill" onClick={() => openTechVisit("timeline")}>
-                    <CalendarCheck size={17} /> {etapa.cta.label}
-                  </button>
-                ) : (
+                {etapa.cta && (
                   <a className="btn btn-pill" href={etapa.cta.href}>
                     {etapa.cta.label} <ArrowRight size={17} />
                   </a>
-                ))}
+                )}
               </motion.div>
             </AnimatePresence>
           </div>

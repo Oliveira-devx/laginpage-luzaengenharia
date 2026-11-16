@@ -11,7 +11,7 @@ export const INDICADORES = [
   { key: "projetos", label: "Projetos realizados", value: null, prefix: "+", suffix: "" },
   { key: "potencia", label: "Potência instalada", value: null, prefix: "", suffix: " kWp" },
   { key: "clientes", label: "Clientes atendidos", value: null, prefix: "+", suffix: "" },
-  { key: "anos", label: "Anos de experiência", value: null, prefix: "", suffix: "" },
+  { key: "anos", label: "Anos de experiência", value: 6, prefix: "", suffix: "" },
 ];
 
 // Fatos já confirmados no site atual (sempre exibidos)
